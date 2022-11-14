@@ -16,6 +16,10 @@ declare module '@nuxt/schema' {
   // @ts-ignore
   interface NuxtHooks extends HeadExtraHooks {
   }
+
+  interface NuxtApp {
+    $headExtra: Ref<HeadExtraObj>
+  }
 }
 
 export default defineNuxtModule<HeadExtraOptions>({

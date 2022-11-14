@@ -33,7 +33,7 @@ export default (headObjInput: HeadExtraObj) => {
     fullPath = useRoute().path
   }
 
-  socialImageURL ??= options.defaults?.socialImageURL
+  socialImageURL = socialImageURL || options.defaults?.socialImageURL
   socialImageURL = socialImageURL ? socialImageURL?.replace('{{fullPath}}', fullPath) : ''
 
   fullTitle = `${section && section?.length > 0 ? ` - ${section}` : ''}${extra && extra.length > 0 ? (title ? ' - ' : '') + extra : ''}`
