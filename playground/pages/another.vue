@@ -5,10 +5,9 @@
 </template>
 
 <script setup>
-
-import {useHeadEx} from "../../src/runtime/composables";
+import { useHeadEx } from '#imports'
 
 useHeadEx({
-  title: "Another Page"
+  title: 'Another Page'
 })
 </script>
