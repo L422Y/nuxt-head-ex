@@ -33,7 +33,6 @@ Usage:
 
 ```js
 <script setup>
-
   useHeadEx({
   title: `${project?.title}`,
   subtitle,
