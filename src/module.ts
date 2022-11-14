@@ -1,7 +1,22 @@
-import {fileURLToPath} from 'url'
-import {defu} from 'defu'
-import {addImports, createResolver, defineNuxtModule} from '@nuxt/kit'
-import {HeadExtraObj, HeadExtraOptions} from "./types";
+import { defu } from 'defu'
+import { addImports, addPlugin, createResolver, defineNuxtModule } from '@nuxt/kit'
+import { HeadExtraHooks, HeadExtraObj, HeadExtraOptions } from './types'
+
+declare module '@nuxt/schema' {
+  // @ts-ignore
+  interface NuxtConfig {
+    ['headExtra']?: Partial<HeadExtraOptions>
+  }
+
+  // @ts-ignore
+  interface NuxtOptions {
+    ['headExtra']?: HeadExtraOptions
+  }
+
+  // @ts-ignore
+  interface NuxtHooks extends HeadExtraHooks {
+  }
+}
 
 export default defineNuxtModule<HeadExtraOptions>({
   meta: {
@@ -13,11 +28,11 @@ export default defineNuxtModule<HeadExtraOptions>({
     twitterImageSize: 'summary_large_image',
     defaults: {} as HeadExtraObj
   },
-  setup(options, nuxt) {
+  setup (options, nuxt) {
     // @ts-ignore
     const resolver = createResolver(import.meta.url)
-    // @ts-ignore
-    const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
+    const runtimeDir = resolver.resolve('./runtime')
+
     nuxt.options.build.transpile.push(runtimeDir)
     nuxt.options.runtimeConfig.public.headExtra = defu(nuxt.options.runtimeConfig.public.headExtra, {
       extra: options.extra,
@@ -25,11 +40,14 @@ export default defineNuxtModule<HeadExtraOptions>({
     })
 
     addImports({
-      from: resolver.resolve('runtime/composables'),
-      name: 'useHeadEx',
-      as: 'useHeadEx'
+      from: resolver.resolve('runtime/composables/useHeadEx'),
+      name: 'useHeadEx2'
     })
-
+    addPlugin({
+      src: resolver.resolve('runtime/plugin')
+    })
+    nuxt.hook('imports:dirs', (dirs) => {
+      dirs.push(resolver.resolve('runtime/composables'))
+    })
   }
 })
-
