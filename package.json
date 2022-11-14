@@ -1,6 +1,6 @@
 {
   "name": "nuxt-head-ex",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "license": "MIT",
   "type": "module",
   "exports": {
@@ -39,8 +39,10 @@
   "keywords": [
     "nuxt",
     "module",
-    "javascript",
-    "vue"
+    "seo",
+    "social",
+    "vue",
+    "typescript"
   ],
   "author": "l422y@l422y.com",
   "bugs": {
