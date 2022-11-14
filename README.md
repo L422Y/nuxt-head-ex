@@ -1,11 +1,12 @@
-# nuxt-head-ex
+# Nuxt: Head<em>Extra</em>
 
-Implements `useHeadEx()` composable to automatically propagate title and description to social media compatible meta tags.
-
+Implements `useHeadEx()` composable to automatically propagate title and description to social media compatible meta
+tags.
 
 ```shell
 yarn add nuxt-head-ex
 ```
+
 ...and add the module to your `nuxt.config.ts`:
 
 ```shell
@@ -29,14 +30,61 @@ export default defineNuxtConfig({
 ```
 
 Usage:
+
 ```js
 <script setup>
+
   useHeadEx({
-    title: `${project?.title}`,
-    subtitle,
-    section: `PROJECTS`,
-    description: `${excerpt}`
+  title: `${project?.title}`,
+  subtitle,
+  section: `PROJECTS`,
+  description: `${excerpt}`
 })
+</script>
+```
+
+Accessing updated values:
+
+```js
+const nuxt = useNuxtApp()
+const sectionTitle = useState('sectionTitle')
+
+// set up a callback
+nuxt.$headExtra.callback = (headObj) => { /*...*/
+}
+
+// ...or use the `headExtra:update` nuxt hook
+nuxt.hook('headExtra:update', (headObj) => {
+  sectionTitle = headObj.meta.find(v => v.name === 'clean:section')
+})
+```
+
+Accessing the currently used input reflectively:
+
+#### **`app.vue`**
+```js
+<template>
+  <div v-if="hExValues?.section">
+    hExValues.section = "{{ hExValues.section }}"
+  </div>
+  <NuxtPage/>
+</template>
+<script setup>
+  const hExValues = useState('headExtraValues')
+</script>
+```
+#### **`pages/test.vue`**
+```js
+<template>
+  <section id="testing">
+    Now we're cooking with gas!
+  </section>
+</template>
+<script setup>
+  useHeadEx({
+      title: 'Testing!', 
+      section: 'Testing Section'
+  })
 </script>
 ```
 
