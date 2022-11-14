@@ -1,4 +1,9 @@
 {
+  "vueCompilerOptions": {
+    "plugins": [
+      "../src/runtime/plugin.ts"
+    ]
+  },
   "compilerOptions": {
     "moduleResolution": "node"
   }

@@ -30,5 +30,21 @@
     "@nuxtjs/eslint-config-typescript": "^11.0.0",
     "eslint": "^8.26.0",
     "nuxt": "^3.0.0-rc.13"
-  }
+  },
+  "description": "Implements `useHeadEx()` composable to automatically propagate title and description to social media compatible meta tags.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/L422Y/nuxt-head-ex.git"
+  },
+  "keywords": [
+    "nuxt",
+    "module",
+    "javascript",
+    "vue"
+  ],
+  "author": "l422y@l422y.com",
+  "bugs": {
+    "url": "https://github.com/L422Y/nuxt-head-ex/issues"
+  },
+  "homepage": "https://github.com/L422Y/nuxt-head-ex#readme"
 }

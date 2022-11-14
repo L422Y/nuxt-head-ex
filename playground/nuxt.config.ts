@@ -1,10 +1,8 @@
 import { defineNuxtConfig } from 'nuxt/config'
-import HeadEx from '..'
+import HeadExtra from '../src/module'
 
 export default defineNuxtConfig({
-  modules: [
-    HeadEx
-  ],
+  modules: [HeadExtra],
   headExtra: {
     extra: 'Larry Williamson - Full-stack Engineer and Creative Technologist',
     defaults: {
