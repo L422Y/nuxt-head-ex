@@ -1,4 +1,5 @@
 import { defu } from 'defu'
+import { Ref } from 'vue'
 import { addImports, addPlugin, createResolver, defineNuxtModule } from '@nuxt/kit'
 import { HeadExtraHooks, HeadExtraObj, HeadExtraOptions } from './types'
 
