@@ -32,7 +32,7 @@ export interface HeadExtraOptions {
    *   section: 'BLOG',
    *   socialImageURL: 'https://l422y.com/shareImage?path={{fullPath}}',
    * }
-   * @type string
+   * @type HeadExtraObj
    */
   defaults: HeadExtraObj
 }
