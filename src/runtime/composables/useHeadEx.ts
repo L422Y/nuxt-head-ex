@@ -1,30 +1,47 @@
 // @ts-ignore
+import { HeadExtraObj } from '../../types'
 import { Ref, useHead, useNuxtApp, useRoute, useRuntimeConfig, useState } from '#imports'
-import { HeadExtraObj, ModuleOptions } from '../../types'
 
 export default (headObjInput: HeadExtraObj) => {
   const app = useNuxtApp()
-  let
-    fullTitle: string,
-    fullPath: string
-
-  let {
-    title,
-    socialImageURL
-  } = headObjInput
-
   const {
+    title,
     subtitle,
     description,
     section
   } = headObjInput
-
   const config = useRuntimeConfig()
-  const options = config.headExtra
+  const options = config.public.headExtra
   const extra = options.extra
   const headExtraState = useState('headExtraValues', () => {
     return {}
   }) as Ref<HeadExtraObj>
+
+  let fullPath: string
+  let { socialImageURL } = headObjInput
+  let renderTitle = function ({
+    title,
+    subtitle,
+    section,
+    extra,
+    separator
+  }) {
+    let renderedTitle = `${section && section?.length > 0 ? ` ${separator} ${section}` : ''}${extra && extra.length > 0 ? (title ? `  ${separator} ` : '') + extra : ''}`
+    if (title) {
+      renderedTitle = `${title}${renderedTitle}`
+    } else {
+      title = renderedTitle
+    }
+    return renderedTitle
+  }
+
+  if (typeof options?.renderTitle === 'function') {
+    renderTitle = options?.renderTitle
+  }
+
+  if (typeof app.$headExtra?.renderTitle === 'function') {
+    renderTitle = app.$headExtra?.renderTitle
+  }
 
   // @ts-ignore
   if (process.server) {
@@ -33,16 +50,17 @@ export default (headObjInput: HeadExtraObj) => {
     fullPath = useRoute().path
   }
 
-  socialImageURL = socialImageURL || options.defaults?.socialImageURL
+  socialImageURL = socialImageURL || options.socialImageURL || options.defaults?.socialImageURL
   socialImageURL = socialImageURL ? socialImageURL?.replace('{{fullPath}}', fullPath) : ''
-  const { separator } = options
-  fullTitle = `${section && section?.length > 0 ? ` ${separator} ${section}` : ''}${extra && extra.length > 0 ? (title ? `  ${separator} ` : '') + extra : ''}`
 
-  if (title) {
-    fullTitle = `${title}${fullTitle}`
-  } else {
-    title = fullTitle
-  }
+  const { separator } = options
+  const fullTitle = renderTitle({
+    title,
+    subtitle,
+    section,
+    extra,
+    separator
+  })
 
   // reset/clear existing values in the stored state
   headExtraState.value = {
@@ -65,6 +83,7 @@ export default (headObjInput: HeadExtraObj) => {
       content: title
     }
   ]
+
   if (section) {
     headObjInput.meta.push({
       name: 'clean:section',

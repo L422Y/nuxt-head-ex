@@ -18,7 +18,7 @@ export interface ModuleOptions {
    * Extra text to append to end of title(s)
    * @type string
    */
-  extra: string,
+  extra?: string,
   /**
    * Separator for title / section / extra
    * @default '-'
@@ -30,7 +30,7 @@ export interface ModuleOptions {
    * @default summary_large_image
    * @type string
    */
-  twitterImageSize: 'summary' | 'summary_large_image' | 'app' | 'player',
+  twitterImageSize?: 'summary' | 'summary_large_image' | 'app' | 'player',
   /**
    * Default/fallback values for meta tags when none are supplied for a page
    * @example
@@ -43,7 +43,12 @@ export interface ModuleOptions {
    * }
    * @type HeadExtraObj
    */
-  defaults: HeadExtraObj
+  defaults?: HeadExtraObj,
+  /**
+   * Extra text to append to end of title(s)
+   * @type string
+   */
+  renderTitle?: Function
 }
 
 declare module '@nuxt/schema' {
