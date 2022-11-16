@@ -9,6 +9,12 @@
       headExtraValues.section = "{{ headExtraValues.section }}"
     </div>
     <NuxtPage/>
+    <div v-if="headExtraValues">
+      <p><strong>Passed Title</strong>: {{ headExtraValues?.title || '(none)' }}</p>
+      <p><strong>Passed Section</strong>: {{ headExtraValues?.section || '(none)' }}</p>
+      <p><strong>Extra</strong>: {{ headExtraValues?.extra || '(none)' }}</p>
+      <p><strong>Rendered Title</strong>: {{ headExtraValues?.fullTitle || '(none)' }}</p>
+    </div>
   </main>
 </template>
 
@@ -25,7 +31,7 @@ nuxt.$headExtra.callback = (headObj) => {
 nuxt.hook('headExtra:update', (headObj) => {
   const sectionTitle = headObj.meta.find(v => v.name === 'clean:section')
   // eslint-disable-next-line no-console
-  console.log('headExtra:update', headObj)
+  // console.log('headExtra:update', headObj)
 })
 
 useHeadEx({

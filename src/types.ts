@@ -1,3 +1,5 @@
+import { Ref } from 'vue'
+
 export interface HeadExtraObj {
   meta?: any,
   title?: string,
@@ -6,16 +8,23 @@ export interface HeadExtraObj {
   description?: string,
   socialImageURL?: string,
 }
+
 export interface HeadExtraHooks {
   'headExtra:update': any
 }
 
-export interface HeadExtraOptions {
+export interface ModuleOptions {
   /**
    * Extra text to append to end of title(s)
    * @type string
    */
   extra: string,
+  /**
+   * Separator for title / section / extra
+   * @default '-'
+   * @type string
+   */
+  separator?: '-' | '|' | string,
   /**
    * Twitter card image size
    * @default summary_large_image
@@ -35,4 +44,24 @@ export interface HeadExtraOptions {
    * @type HeadExtraObj
    */
   defaults: HeadExtraObj
+}
+
+declare module '@nuxt/schema' {
+  // @ts-ignore
+  interface NuxtConfig {
+    headExtra?: Partial<ModuleOptions>
+  }
+
+  // @ts-ignore
+  interface NuxtOptions {
+    headExtra?: Partial<ModuleOptions>
+  }
+
+  // @ts-ignore
+  interface NuxtHooks extends HeadExtraHooks {
+  }
+
+  interface NuxtApp {
+    $headExtra: Ref<HeadExtraObj>
+  }
 }

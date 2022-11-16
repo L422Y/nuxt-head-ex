@@ -1,29 +1,9 @@
 import { defu } from 'defu'
 import { Ref } from 'vue'
-import { addImports, addPlugin, createResolver, defineNuxtModule } from '@nuxt/kit'
-import { HeadExtraHooks, HeadExtraObj, HeadExtraOptions } from './types'
+import { addPlugin, createResolver, defineNuxtModule } from '@nuxt/kit'
+import { HeadExtraHooks, HeadExtraObj, ModuleOptions } from './types'
 
-declare module '@nuxt/schema' {
-  // @ts-ignore
-  interface NuxtConfig {
-    ['headExtra']?: Partial<HeadExtraOptions>
-  }
-
-  // @ts-ignore
-  interface NuxtOptions {
-    ['headExtra']?: HeadExtraOptions
-  }
-
-  // @ts-ignore
-  interface NuxtHooks extends HeadExtraHooks {
-  }
-
-  interface NuxtApp {
-    $headExtra: Ref<HeadExtraObj>
-  }
-}
-
-export default defineNuxtModule<HeadExtraOptions>({
+export default defineNuxtModule<ModuleOptions>({
   meta: {
     name: 'head-extra',
     configKey: 'headExtra'
@@ -31,6 +11,7 @@ export default defineNuxtModule<HeadExtraOptions>({
   defaults: {
     extra: '',
     twitterImageSize: 'summary_large_image',
+    separator: '-',
     defaults: {} as HeadExtraObj
   },
   setup (options, nuxt) {
@@ -39,15 +20,8 @@ export default defineNuxtModule<HeadExtraOptions>({
     const runtimeDir = resolver.resolve('./runtime')
 
     nuxt.options.build.transpile.push(runtimeDir)
-    nuxt.options.runtimeConfig.public.headExtra = defu(nuxt.options.runtimeConfig.public.headExtra, {
-      extra: options.extra,
-      defaults: options.defaults
-    })
+    nuxt.options.runtimeConfig.public.headExtra = defu(nuxt.options.runtimeConfig.public.headExtra, options)
 
-    addImports({
-      from: resolver.resolve('runtime/composables/useHeadEx'),
-      name: 'useHeadEx2'
-    })
     addPlugin({
       src: resolver.resolve('runtime/plugin')
     })

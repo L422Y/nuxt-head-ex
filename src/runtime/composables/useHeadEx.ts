@@ -1,6 +1,6 @@
-import { HeadExtraObj, HeadExtraOptions } from '../../types'
 // @ts-ignore
 import { Ref, useHead, useNuxtApp, useRoute, useRuntimeConfig, useState } from '#imports'
+import { HeadExtraObj, ModuleOptions } from '../../types'
 
 export default (headObjInput: HeadExtraObj) => {
   const app = useNuxtApp()
@@ -20,7 +20,7 @@ export default (headObjInput: HeadExtraObj) => {
   } = headObjInput
 
   const config = useRuntimeConfig()
-  const options: HeadExtraOptions = config.headExtra || {}
+  const options = config.headExtra
   const extra = options.extra
   const headExtraState = useState('headExtraValues', () => {
     return {}
@@ -35,8 +35,8 @@ export default (headObjInput: HeadExtraObj) => {
 
   socialImageURL = socialImageURL || options.defaults?.socialImageURL
   socialImageURL = socialImageURL ? socialImageURL?.replace('{{fullPath}}', fullPath) : ''
-
-  fullTitle = `${section && section?.length > 0 ? ` - ${section}` : ''}${extra && extra.length > 0 ? (title ? ' - ' : '') + extra : ''}`
+  const { separator } = options
+  fullTitle = `${section && section?.length > 0 ? ` ${separator} ${section}` : ''}${extra && extra.length > 0 ? (title ? `  ${separator} ` : '') + extra : ''}`
 
   if (title) {
     fullTitle = `${title}${fullTitle}`
@@ -45,7 +45,10 @@ export default (headObjInput: HeadExtraObj) => {
   }
 
   // reset/clear existing values in the stored state
-  headExtraState.value = {} as HeadExtraObj
+  headExtraState.value = {
+    fullTitle,
+    extra
+  } as HeadExtraObj
   Object.assign(headExtraState.value as HeadExtraObj, headObjInput)
 
   headObjInput.meta = [
@@ -60,12 +63,14 @@ export default (headObjInput: HeadExtraObj) => {
     {
       name: 'clean:title',
       content: title
-    },
-    {
-      name: 'clean:section',
-      content: section
     }
   ]
+  if (section) {
+    headObjInput.meta.push({
+      name: 'clean:section',
+      content: section
+    })
+  }
 
   if (socialImageURL && socialImageURL.length > 0) {
     headObjInput.meta.push({
