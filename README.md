@@ -20,6 +20,7 @@ export default defineNuxtConfig({
   modules: ['nuxt-head-ex'],
   headExtra: {
     extra: 'My Sweet Website', // appended to titles
+    separator: '•', // used to separate title components / extra
     defaults: {
       // you can use {{fullPath}} to pass the path to a dynamic image generator
       socialImageURL: 'https://l422y.com/images/share.png?path={{fullPath}}',
