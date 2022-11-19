@@ -1,17 +1,17 @@
 // @ts-ignore
-import { HeadExtraObj } from '../../types'
+import { HeadExtraObj, ModuleOptions } from '../../types'
 import { Ref, useHead, useNuxtApp, useRoute, useRuntimeConfig, useState } from '#imports'
 
 export default (headObjInput: HeadExtraObj) => {
   const app = useNuxtApp()
-  const {
+  let {
     title,
     subtitle,
     description,
     section
   } = headObjInput
   const config = useRuntimeConfig()
-  const options = config.public.headExtra
+  const options = config.public.headExtra as ModuleOptions
   const extra = options.extra
   const headExtraState = useState('headExtraValues', () => {
     return {}
@@ -36,6 +36,7 @@ export default (headObjInput: HeadExtraObj) => {
   }
 
   if (typeof options?.renderTitle === 'function') {
+    // @ts-ignore
     renderTitle = options?.renderTitle
   }
 
@@ -50,7 +51,13 @@ export default (headObjInput: HeadExtraObj) => {
     fullPath = useRoute().path
   }
 
-  socialImageURL = socialImageURL || options.socialImageURL || options.defaults?.socialImageURL
+  // set defaults
+  socialImageURL = socialImageURL || options.defaults?.socialImageURL
+  title = title || options?.defaults?.title
+  subtitle = subtitle || options?.defaults?.subtitle
+  section = section || options?.defaults?.section
+  description = description || options?.defaults?.description
+
   socialImageURL = socialImageURL ? socialImageURL?.replace('{{fullPath}}', fullPath) : ''
 
   const { separator } = options
