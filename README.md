@@ -92,3 +92,8 @@ Accessing the currently used input reflectively:
 
 - Run `npm run dev:prepare` to generate type stubs.
 - Use `npm run dev` to start [playground](./playground) in development mode.
+
+
+## Credits
+
+Made with 💚 by [Larry Williamson](https://l422y.com) / [@l422y](https://twitter.com/l422y)
