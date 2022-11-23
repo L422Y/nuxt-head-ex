@@ -9,6 +9,7 @@ import { useHeadEx } from '#imports'
 
 useHeadEx({
   title: 'Another Page',
-  section: 'Other Section'
+  section: 'Other Section',
+  extra: false
 })
 </script>

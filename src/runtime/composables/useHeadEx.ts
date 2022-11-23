@@ -1,46 +1,49 @@
 // @ts-ignore
 import { HeadExtraObj, ModuleOptions } from '../../types'
+// @ts-ignore
 import { Ref, useHead, useNuxtApp, useRoute, useRuntimeConfig, useState } from '#imports'
 
+let renderTitle = function ({
+  title,
+  subtitle,
+  section,
+  separator,
+  extra
+}) {
+  let renderedTitle = `${section && section?.length > 0 ? ` ${separator} ${section}` : ''}${extra && extra.length > 0 ? (title ? `  ${separator} ` : '') + extra : ''}`
+  if (title) {
+    renderedTitle = `${title}${renderedTitle}`
+  } else {
+    title = renderedTitle
+  }
+  return renderedTitle
+}
+
 export default (headObjInput: HeadExtraObj) => {
+  let fullPath: string
+
   const app = useNuxtApp()
-  let {
-    title,
-    subtitle,
-    description,
-    section
-  } = headObjInput
   const config = useRuntimeConfig()
   const options = config.public.headExtra as ModuleOptions
-  const extra = options.extra
   const headExtraState = useState('headExtraValues', () => {
     return {}
   }) as Ref<HeadExtraObj>
 
-  let fullPath: string
-  let { socialImageURL } = headObjInput
-  let renderTitle = function ({
+  let {
     title,
     subtitle,
+    description,
     section,
     extra,
-    separator
-  }) {
-    let renderedTitle = `${section && section?.length > 0 ? ` ${separator} ${section}` : ''}${extra && extra.length > 0 ? (title ? `  ${separator} ` : '') + extra : ''}`
-    if (title) {
-      renderedTitle = `${title}${renderedTitle}`
-    } else {
-      title = renderedTitle
-    }
-    return renderedTitle
-  }
+    socialImageURL
+  } = headObjInput
+
+  extra = extra !== undefined ? extra : options.extra
 
   if (typeof options?.renderTitle === 'function') {
     // @ts-ignore
     renderTitle = options?.renderTitle
-  }
-
-  if (typeof app.$headExtra?.renderTitle === 'function') {
+  } else if (typeof app.$headExtra?.renderTitle === 'function') {
     renderTitle = app.$headExtra?.renderTitle
   }
 

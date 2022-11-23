@@ -29,17 +29,23 @@ const nuxt = useNuxtApp()
 const headExtraValues = useState('headExtraValues')
 nuxt.$headExtra.callback = (headObj) => {
   // eslint-disable-next-line no-console
-  console.log('headExtra.callback', headObj)
+  // console.log('headExtra.callback', headObj)
 }
 
-nuxt.$headExtra.renderTitle = ({
+nuxt.$headExtra.renderTitle = function ({
   title,
-  section,
   subtitle,
-  extra,
-  separator
-}) => {
-  return `${title}${section ? ' @ ' + section : ''}${subtitle ? ' - ' + subtitle : ''}`
+  section,
+  separator,
+  extra
+}) {
+  let renderedTitle = `${section && section?.length > 0 ? ` ${separator} ${section}` : ''}${extra && extra.length > 0 ? (title ? `  ${separator} ` : '') + extra : ''}`
+  if (title) {
+    renderedTitle = `${title}${renderedTitle}`
+  } else {
+    title = renderedTitle
+  }
+  return renderedTitle
 }
 
 const sectionTitle = useState('sectionTitle')

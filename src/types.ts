@@ -2,6 +2,7 @@ import { Ref } from 'vue'
 
 export interface HeadExtraObj {
   meta?: any,
+  extra?: string,
   title?: string,
   subtitle?: string,
   section?: string,
