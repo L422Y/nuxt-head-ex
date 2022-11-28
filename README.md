@@ -25,6 +25,10 @@ export default defineNuxtConfig({
       // you can use {{fullPath}} to pass the path to a dynamic image generator
       socialImageURL: 'https://l422y.com/images/share.png?path={{fullPath}}',
       description: 'Senior full-stack engineer and creative technologist with over 20 years’ experience and a focus in software, interactive and web development.'
+    },
+    // or you can override the title rendering function altogether:
+    renderTitle: ({ title, subtitle, section, extra, separator })=> {
+      return `⚡️ ${title} ${separator} ${subtitle} {$separator} ${extra}`
     }
   }
 })
