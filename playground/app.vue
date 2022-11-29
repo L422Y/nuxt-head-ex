@@ -26,11 +26,13 @@ import { useNuxtApp, useState } from '#app'
 import { useHeadEx } from '#imports'
 
 const nuxt = useNuxtApp()
-const headExtraValues = useState('headExtraValues')
+
 nuxt.$headExtra.callback = (headObj) => {
   // eslint-disable-next-line no-console
   // console.log('headExtra.callback', headObj)
 }
+
+const headExtraValues = useState('headExtraValues')
 
 nuxt.$headExtra.renderTitle = function ({
   title,
@@ -41,7 +43,7 @@ nuxt.$headExtra.renderTitle = function ({
 }) {
   let renderedTitle = `${section && section?.length > 0 ? ` ${separator} ${section}` : ''}${extra && extra.length > 0 ? (title ? `  ${separator} ` : '') + extra : ''}`
   if (title) {
-    renderedTitle = `${title}${renderedTitle}`
+    renderedTitle = `⚡️ ${title}${renderedTitle}`
   } else {
     title = renderedTitle
   }

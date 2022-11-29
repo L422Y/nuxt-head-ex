@@ -11,16 +11,6 @@ export default defineNuxtModule<ModuleOptions>({
     extra: '',
     twitterImageSize: 'summary_large_image',
     separator: '-',
-    renderTitle: (title, subtitle, section, extra, separator) => {
-      let fullTitle = `${section && section?.length > 0 ? ` ${separator} ${section}` : ''}${extra && extra.length > 0 ? (title ? `  ${separator} ` : '') + extra : ''}`
-
-      if (title) {
-        fullTitle = `${title}${fullTitle}`
-      } else {
-        title = fullTitle
-      }
-      return fullTitle
-    },
     defaults: {} as HeadExtraObj
   },
   setup (options, nuxt) {

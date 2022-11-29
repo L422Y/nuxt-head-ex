@@ -44,12 +44,7 @@ export interface ModuleOptions {
    * }
    * @type HeadExtraObj
    */
-  defaults?: HeadExtraObj,
-  /**
-   * Extra text to append to end of title(s)
-   * @type string
-   */
-  renderTitle?: Function
+  defaults?: HeadExtraObj
 }
 
 declare module '@nuxt/schema' {
