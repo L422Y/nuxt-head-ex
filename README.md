@@ -1,4 +1,5 @@
 # Nuxt: Head<em>Extra</em>
+![npm](https://img.shields.io/npm/dt/nuxt-head-ex)
 
 Implements `useHeadEx()` composable to automatically propagate title and description to social media compatible meta
 tags.
