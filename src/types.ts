@@ -48,17 +48,14 @@ export interface ModuleOptions {
 }
 
 declare module '@nuxt/schema' {
-  // @ts-ignore
   interface NuxtConfig {
     headExtra?: Partial<ModuleOptions>
   }
 
-  // @ts-ignore
   interface NuxtOptions {
     headExtra?: Partial<ModuleOptions>
   }
 
-  // @ts-ignore
   interface NuxtHooks extends HeadExtraHooks {
   }
 

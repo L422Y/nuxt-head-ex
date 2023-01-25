@@ -40,7 +40,6 @@ export default (headObjInput: HeadExtraObj) => {
 
   extra = extra !== undefined ? extra : options.extra
 
-  console.log(app.$headExtra)
   if (typeof app.$headExtra?.renderTitle === 'function') {
     renderTitle = app.$headExtra?.renderTitle
   }
