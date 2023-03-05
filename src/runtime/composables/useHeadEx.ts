@@ -10,7 +10,7 @@ let renderTitle = function ({
   separator,
   extra
 }) {
-  let renderedTitle = `${section && section?.length > 0 ? ` ${separator} ${section}` : ''}${extra && extra.length > 0 ? (title ? `  ${separator} ` : '') + extra : ''}`
+  let renderedTitle = `${section && section?.length > 0 ? ` ${separator} ${section}` : ''}${extra && extra.length > 0 ? (title ? ` ${separator} ` : '') + extra : ''}`
   if (title) {
     renderedTitle = `${title}${renderedTitle}`
   } else {
