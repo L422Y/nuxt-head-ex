@@ -1,6 +1,4 @@
-// @ts-ignore
 import { HeadExtraObj, ModuleOptions } from '../../types'
-// @ts-ignore
 import { Ref, useHead, useNuxtApp, useRoute, useRuntimeConfig, useState } from '#imports'
 
 let renderTitle = function ({

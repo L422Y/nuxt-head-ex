@@ -4,6 +4,7 @@ import HeadExtra from '../src/module'
 export default defineNuxtConfig({
   modules: [HeadExtra],
   headExtra: {
+    twitterImageSize: 'summary_large_image',
     extra: 'Larry Williamson - Full-stack Engineer and Creative Technologist',
     separator: ' // ',
     defaults: {
