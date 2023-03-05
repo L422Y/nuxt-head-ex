@@ -13,8 +13,6 @@ let renderTitle = function ({
   let renderedTitle = `${section && section?.length > 0 ? ` ${separator} ${section}` : ''}${extra && extra.length > 0 ? (title ? ` ${separator} ` : '') + extra : ''}`
   if (title) {
     renderedTitle = `${title}${renderedTitle}`
-  } else {
-    title = renderedTitle
   }
   return renderedTitle
 }
